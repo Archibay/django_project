@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Post detail</h2>
+    {{ object.instance.pk }}
+    <p>Post from: {{ object.user }}</p>
+    <p>created at<br>
+        {{ object.created_date }}</p>
+    <p>{{ object.title }}</p>
+    <p>{{ object.text }}</p>
+    <p>{{ object.comments.text }}</p>
+    <a href='{% url "blog:post_update" pk=object.id %}'>Update</a>
+    <a href='{% url "blog:comment_add" pk=object.id %}'>Add comment</a>
+
+{% endblock %}
