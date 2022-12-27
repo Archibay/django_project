@@ -2,7 +2,7 @@
 
 {% block content %}
 
-  <form method="POST" class="form-group">
+    <form action= "{% url 'user_management:user_update' form.instance.pk %}" method="POST">
     {% csrf_token %}
     <table>
       {{ form.as_table }}

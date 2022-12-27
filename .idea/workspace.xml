@@ -5,42 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c2f897af-1b8d-41cd-a09c-82f31042db0b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/blog/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog/templates/base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog/templates/comment_add.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog/templates/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog/templates/post_detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog/templates/post_new.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog/templates/posts_all.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_management/templates/base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_management/templates/registration/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_management/templates/registration/password_change_done.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_management/templates/registration/password_change_form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_management/templates/registration/password_reset_complete.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_management/templates/registration/password_reset_confirm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_management/templates/registration/password_reset_done.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_management/templates/registration/password_reset_email.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_management/templates/registration/password_reset_form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_management/templates/registration/profile.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_management/templates/registration/registration.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_management/templates/registration/update_profile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user_management/templates/registration/user_detail.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user_management/templates/registration/user_update.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/django_project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/django_project.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pr_1/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pr_1/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pr_1/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pr_1/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pr_1/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pr_1/templates/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/post_update.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pr_1/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pr_1/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pr_1/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_management/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_management/templates/reg/registration.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_management/templates/registration/update_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/user_management/templates/registration/update_profile.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user_management/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/user_management/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user_management/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/user_management/views.py" afterDir="false" />
     </list>
@@ -73,15 +43,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/artur/PycharmProjects/Django_hw_2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/home/artur/PycharmProjects/django_project",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/templates" />
