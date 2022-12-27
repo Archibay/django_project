@@ -14,16 +14,31 @@
 
 </head>
 <body>
-{% block sidebar %}
-    {% if user.is_authenticated %}
-    <h5>User: {{ user.get_username }}</h5>
 
-    {% else %}
-    <li><a href="{% url 'user_management:login' %}?next={{ request.path }}">Login</a></li>
-    <li><a href="{% url 'user_management:registration' %}?next={{ request.path }}">Registration</a></li>
-    {% endif %}
-    </ul>
-{% endblock %}
+  <div class="row">
+    <div class="col-sm-2">
+      {% block sidebar %}
+        <ul class="sidebar-nav">
+          <li><a href="{% url 'blog:index' %}">Home</a></li>
+
+        </ul>
+
+        <ul class="sidebar-nav">
+          {% if request.user.is_authenticated %}
+            <li>User: {{ request.user.get_username }}</li>
+            <li><a href="{% url 'user_management:user_detail' %}">My profile</a></li>
+            <li><a href="{% url 'blog:add_post' %}">Add new post</a></li>
+            <li><a href="{% url 'blog:user_posts' %}">My posts</a></li>
+            <li><a href="{% url 'user_management:logout' %}?next={{ request.path }}">Logout</a></li>
+          {% else %}
+            <li><a href="{% url 'user_management:login' %}?next={{ request.path }}">Login</a></li>
+            <li><a href="{% url 'user_management:registration' %}?next={{ request.path }}">Register</a></li>
+          {% endif %}
+        </ul>
+      {% endblock %}
+    </div>
+  </div>
+
 {% block content %}{% endblock %}
 
 

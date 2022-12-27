@@ -6,6 +6,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView, ListView, D
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from user_management.forms import RegistrationForm
+from blog.models import Post
 
 
 class RegistrationView(FormView):
@@ -24,6 +25,10 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'registration/user_detail.html'
 
+    def get_object(self, queryset=None):
+        user = self.request.user
+        return user
+
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = User
@@ -35,3 +40,14 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
         user = self.request.user
         return user
 
+
+class UserProfilePublicDetailView(DetailView):
+    model = User
+    template_name = 'registration/user_detail_public.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(UserProfilePublicDetailView, self).get_context_data(**kwargs)
+        user = self.get_object()
+        context['posts_count'] = user.post_set.filter(published=True).count()
+        context['posts'] = user.post_set.filter(published=True)
+        return context

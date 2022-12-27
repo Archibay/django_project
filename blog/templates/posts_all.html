@@ -2,22 +2,9 @@
 {% block content %}
     <h2>All posts</h2>
     {% for a in post_list %}
-    <p><li> {{ a.user }} </li>
-    <li> {{ a.created_date }} </li>
-    <li> {{ a.title }} </li>
-    <li> {{ a.text }} </li>
-        {% if a.published %}
-        <li> Published post</li>
-        {% else %}
-        <li> It is not published post</li>
-        {% endif %}
-
-    <h3>Comments:</h3>
-
-
+    <p><li> {{ a.title }} by <a href="{% url 'user_management:user_detail_pub' pk=a.user.id %}">{{ a.user }}</a>
+    at {{ a.created_date }}</li>
     <p><a href='{% url "blog:post_detail" pk=a.id %}'>Detail</a></p>
-
-
     {% endfor %}
 
 {% endblock %}
