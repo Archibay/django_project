@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>User detail</h2>
+    <p>Username: {{ user.username }}</p>
+    <p>First name: {{ user.first_name }}</p>
+    <p>Last name: {{ user.last_name }}</p>
+    <p>Email: {{ user.email }}</p>
+    <a href='{% url "user_management:user_update" %}'>Update</a>
+
+{% endblock %}
