@@ -2,9 +2,9 @@
 {% block content %}
     <h2>Post detail</h2>
     {{ object.instance.pk }}
-    <p>Post: {{ object.title }}<br>
-        Author: {{ object.user }}<br>
-        {{ object.created_date }}</p>
+    <p>Post: <strong>{{ object.title }}</strong><br>
+        Author: <strong>{{ object.user }}</strong><br>
+        <strong>{{ object.created_date }}</strong></p>
     <p>{{ object.text }}</p>
     <h2>Comments</h2>
     {% for a in comment %}

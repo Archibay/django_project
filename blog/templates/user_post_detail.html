@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Post detail</h2>
+    {{ object.instance.pk }}
+    <p>Post: <strong>{{ object.title }}</strong> created at <strong>{{ object.created_date }}</strong></p>
+    <p>{{ object.text }}</p>
+    <h2>Comments</h2>
+    {% for a in comment %}
+    <p>{{ a.username }}<br>
+        {{ a.text }}</p>
+    {% endfor %}
+
+    <a href='{% url "blog:post_delete" pk=object.id %}'>Delete post</a>
+
+{% endblock %}

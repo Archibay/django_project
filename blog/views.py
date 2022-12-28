@@ -7,12 +7,12 @@ from django.views.generic import CreateView, UpdateView, DeleteView, ListView, D
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
-from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
-
-
-def index_view(request):
-    return render(request, 'index.html', {})
+from .forms import ContactUsForm
+from django.core.mail import send_mail
+from .tasks import django_send_mail
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 
 
 @login_required
@@ -42,6 +42,7 @@ class PostDetailView(DetailView):
         return context
 
 
+@method_decorator(cache_page(10), 'dispatch')
 class PostsListView(ListView):
     model = Post
     fields = ['title', 'text']
@@ -52,32 +53,6 @@ class PostsListView(ListView):
     def get_object(self, **kwargs):
         user = self.request.user
         return user
-
-    # def get_context_data(self, **kwargs):
-    #     context = super(PostsListView, self).get_context_data(**kwargs)
-    #     context['post_comments'] = Comments.objects.filter(username=self.request.user)
-    #     context['comments_quantity'] = Comments.objects.filter(username=self.request.user).count()
-    #     return context
-
-    # send_mail('New comment', 'New comment was added', 'no_reply@somecompany.com', ['admin_email@somecompany.com'])
-
-    # link = get_current_site(request).domain
-    # sent_to = 'fsljd@fsl.com'
-    # send_mail('New comment', f'Hey, You received new comment to your post! Go to the link to check it {link}',
-    #           'no_reply@somecompany.com', [sent_to])
-
-# def comment_add(request):
-#     if request.method == "POST":
-#         form = CommentForm(request.POST)
-#         if form.is_valid():
-#             comments = form.save(commit=False)
-#             comments.username = request.user
-#             comments.post = request.comment_set.id
-#             comments.save()
-#             return redirect('blog:posts_all')
-#     else:
-#         form = CommentForm()
-#     return render(request, 'comment_add.html', {'form': form})
 
 
 class LoginUserPostsAllView(LoginRequiredMixin, ListView):
@@ -92,10 +67,15 @@ class LoginUserPostsAllView(LoginRequiredMixin, ListView):
         user = self.request.user
         return user
 
+
+class UserPostDetailView(DetailView):
+    model = Post
+    template_name = 'user_post_detail.html'
+
     def get_context_data(self, **kwargs):
-        context = super(LoginUserPostsAllView, self).get_context_data(**kwargs)
-        context['post_comments'] = Comments.objects.filter(username=self.request.user)
-        context['comments_quantity'] = Comments.objects.filter(username=self.request.user).count()
+        context = super(UserPostDetailView, self).get_context_data(**kwargs)
+        post = self.get_object()
+        context['comment'] = post.comments_set.filter(published=True).all()
         return context
 
 
@@ -109,6 +89,13 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
         return Post.objects.filter(user=self.request.user)
 
 
+class PostDeleteView(LoginRequiredMixin, DeleteView):
+    model = Post
+    template_name = 'delete_post.html'
+    success_url = reverse_lazy('blog:user_posts')
+    login_url = reverse_lazy('user_management:login')
+
+
 class CommentAddView(CreateView):
     model = Comments
     form_class = CommentForm
@@ -116,5 +103,20 @@ class CommentAddView(CreateView):
 
     def form_valid(self, form):
         form.instance.post_id = self.kwargs['pk']
+        send_mail('New comment', 'New comment was added', 'no_reply@somecompany.com', ['admin@somecompany.com'])
         return super().form_valid(form)
     success_url = reverse_lazy('blog:posts_all')
+
+
+def contact_us_view(request):
+    if request.method == "POST":
+        form = ContactUsForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            from_email = form.cleaned_data['from_email']
+            message = form.cleaned_data['message']
+            django_send_mail(subject, message, from_email, ['admin@somecompany.com'])
+            return redirect('blog:contact_us')
+    else:
+        form = ContactUsForm()
+    return render(request, "contact_us.html", context={"form": form})
