@@ -26,11 +26,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-jjrw-ev_*1#w$d
 # 'django-insecure-jjrw-ev_*1#w$d6097xh890^)pl_*-3c=a&*)gg5h(5+ocjns@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-SCHEMA = "http"
-DOMAIN = "localhost"
-PORT = 8000
+DEBUG = False
 
 ALLOWED_HOSTS = [
     "localhost",
@@ -60,7 +56,6 @@ INSTALLED_APPS = [
     'blog',
 
     'django_celery_results',
-    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -71,8 +66,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
 
 ]
 
@@ -167,9 +160,3 @@ CELERY_BROKER_URL = 'redis://localhost'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-# CELERY_BEAT_SCHEDULE = {
-#     'check-for-new-posts': {
-#         'task': 'celery_beat.tasks.check_post',
-#         'schedule': crontab(minute=0, hour='1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23'),
-#     },
-# }
