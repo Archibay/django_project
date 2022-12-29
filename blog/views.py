@@ -7,12 +7,12 @@ from django.views.generic import CreateView, UpdateView, DeleteView, ListView, D
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
-from django.core.mail import send_mail
 from .forms import ContactUsForm
 from django.core.mail import send_mail
 from .tasks import django_send_mail
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
+from django.core.paginator import Paginator
 
 
 @login_required
@@ -31,15 +31,34 @@ def post_new(request):
     return render(request, 'post_new.html', {'form': form})
 
 
-class PostDetailView(DetailView):
-    model = Post
-    template_name = 'post_detail.html'
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    comment_l = post.comments_set.filter(published=True).all()
+    paginator = Paginator(comment_l, 2)
+    page = request.GET.get('page')
+    comment_p = paginator.get_page(page)
+    return render(request, 'post_detail.html', {'post': post, 'comment': comment_p})
 
-    def get_context_data(self, **kwargs):
-        context = super(PostDetailView, self).get_context_data(**kwargs)
-        post = self.get_object()
-        context['comment'] = post.comments_set.filter(published=True).all()
-        return context
+
+# class PostDetailView(DetailView):
+#     model = Post
+#     template_name = 'post_detail.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(PostDetailView, self).get_context_data(**kwargs)
+#         post = self.get_object()
+#         comment = post.comments_set.filter(published=True).all()
+#         paginator = Paginator(comment, 2)
+#         context['comments'] = paginator.get_page(comment)
+#         return context
+
+    # def get_context_data(self):
+    #     context = super(PostDetailView, self).get_context_data()
+    #     _list = Comment.objects.filter(post=self.kwargs.get('pk'))
+    #     paginator = Paginator(_list, 25) # Show 25 contacts per page
+    #     page = request.GET.get('page')
+    #     context['comments'] = paginator.get_page(page)
+    #     return context
 
 
 @method_decorator(cache_page(10), 'dispatch')
@@ -116,7 +135,7 @@ def contact_us_view(request):
             from_email = form.cleaned_data['from_email']
             message = form.cleaned_data['message']
             django_send_mail(subject, message, from_email, ['admin@somecompany.com'])
-            return redirect('blog:contact_us')
+            return redirect('blog:posts_all')
     else:
         form = ContactUsForm()
     return render(request, "contact_us.html", context={"form": form})
