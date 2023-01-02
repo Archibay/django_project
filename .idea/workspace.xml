@@ -5,26 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c2f897af-1b8d-41cd-a09c-82f31042db0b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/templates/comment_add.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/comment_add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/templates/contact_us.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/contact_us.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/templates/delete_post.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/delete_post.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/templates/post_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/post_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/templates/post_new.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/post_new.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/templates/post_update.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/post_update.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/templates/posts_all.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/posts_all.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/templates/user_post_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/user_post_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/templates/user_posts.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/user_posts.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_management/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/user_management/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_management/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/user_management/templates/registration/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_management/templates/registration/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/user_management/templates/registration/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_management/templates/registration/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/user_management/templates/registration/registration.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_management/templates/registration/update_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/user_management/templates/registration/update_profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_management/templates/registration/user_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/user_management/templates/registration/user_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_management/templates/registration/user_detail_public.html" beforeDir="false" afterPath="$PROJECT_DIR$/user_management/templates/registration/user_detail_public.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_management/templates/registration/user_update.html" beforeDir="false" afterPath="$PROJECT_DIR$/user_management/templates/registration/user_update.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_management/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/user_management/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
