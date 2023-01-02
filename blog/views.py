@@ -13,6 +13,7 @@ from .tasks import django_send_mail
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 from django.core.paginator import Paginator
+from django.contrib import messages
 
 
 @login_required
@@ -135,6 +136,7 @@ def contact_us_view(request):
             from_email = form.cleaned_data['from_email']
             message = form.cleaned_data['message']
             django_send_mail(subject, message, from_email, ['admin@somecompany.com'])
+            messages.add_message(request, messages.SUCCESS, 'Message sent')
             return redirect('blog:posts_all')
     else:
         form = ContactUsForm()

@@ -3,7 +3,9 @@
     <h2>New post</h2>
     <form action= "{% url 'blog:add_post' %}" method="POST" class="post-form">
         {% csrf_token %}
-        {{ form.as_p }}
+        <table class="table align-middle">
+            {{ form.as_table }}
+        </table>
         <button type="submit" class="save btn btn-secondary">Save</button>
     </form>
 {% endblock %}

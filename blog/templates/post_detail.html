@@ -2,15 +2,33 @@
 {% block content %}
     <h2>Post detail</h2>
     {{ object.instance.pk }}
-    <p>Post: <strong>{{ post.title }}</strong><br>
-        Author: <strong>{{ post.user }}</strong><br>
-        <strong>{{ post.created_date }}</strong></p>
-    <p>{{ post.text }}</p>
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <tr>
+                <td>Post</td>
+                <td>{{ post.title }}</td>
+            </tr>
+            <tr>
+                <td>Author</td>
+                <td>{{ post.user }}</td>
+            </tr>
+            <tr>
+                <td>Publication date</td>
+                <td>{{ post.created_date }}</td>
+            </tr>
+            <tr>
+                <td>Text</td>
+                <td>{{ post.text }}</td>
+            </tr>
+        </table>
+    </div>
     <h2>Comments</h2>
+    <ul class="list-group list-group-flush">
     {% for a in comment %}
-    <p>{{ a.username }}<br>
-        {{ a.text }}</p>
+        <li class="list-group-item"><strong>{{ a.username }}</strong><br>
+            {{ a.text }}</li>
     {% endfor %}
+    </ul>
 
 <div class="pagination">
     <span class="step-links">

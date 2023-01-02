@@ -4,7 +4,9 @@
 <h1>Post delete</h1>
 <form method="post">{% csrf_token %}
     <p>Are you sure you want to delete "{{ object }}"?</p>
-    {{ form }}
+    <table class="table table-hover">
+        {{ form.as_table }}
+    </table>
     <input type="submit" value="Confirm">
 </form>
 
