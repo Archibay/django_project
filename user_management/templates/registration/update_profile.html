@@ -2,13 +2,12 @@
 
 {% block content %}
 
-    <form action= "{% url 'user_management:user_update' form.instance.pk %}" method="POST">
+    <form action= "{% url 'user_management:user_update' form.instance.pk %}" method="POST" class="form-group">
     {% csrf_token %}
-    <table>
+    <table class="table table-hover">
       {{ form.as_table }}
     </table>
     <button type="submit" class="btn btn-success">Update</button>
-    <a href="{% url 'password_change' %}" class="btn btn-info">Change password</a>
   </form>
 
 {% endblock %}

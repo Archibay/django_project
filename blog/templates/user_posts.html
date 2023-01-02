@@ -1,19 +1,31 @@
 {% extends "base.html" %}
 {% block content %}
     <h2>All posts</h2>
-    {% for a in post_list %}
-    <li> {{ a.created_date }} </li>
-    <li> {{ a.title }} </li>
-    <li> {{ a.text }} </li>
-        {% if a.published %}
-        <li> Published post</li>
-        {% else %}
-        <li> It is not published post</li>
-        {% endif %}
-
-    <p><a href='{% url "blog:post_update" pk=a.id %}'>Update</a><br>
-    <a href='{% url "blog:user_post_detail" pk=a.id %}'>Detail</a></p>
-
-    {% endfor %}
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead class="table-dark">
+            <tr>
+                <td>Post</td>
+                <td>Created at</td>
+                <td>Text</td>
+                <td>Published?</td>
+            </tr>
+            </thead>
+            <tbody>
+                {% for a in post_list %}
+            <tr>
+                <td><a href='{% url "blog:user_post_detail" pk=a.id %}'>{{ a.title }}</a></td>
+                <td>{{ a.created_date }}</td>
+                <td>{{ a.text }}</td>
+                <td>{% if a.published %}
+                Yes
+                {% else %}
+                No
+                {% endif %}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
 {% endblock %}
