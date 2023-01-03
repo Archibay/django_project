@@ -5,7 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c2f897af-1b8d-41cd-a09c-82f31042db0b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/js/blog.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/django_project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/django_project.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/tasks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/templates/contact_us.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/contact_us.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_management/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/user_management/templates/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +32,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="hw_19" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />

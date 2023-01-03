@@ -1,14 +1,34 @@
-{% extends "base.html" %}
-{% block content %}
-    <h2>Contact us</h2>
-
-    <form method="POST">
-        {% csrf_token %}
+<form action="{% url 'blog:contact_us' %}" method="POST" class="js-contact-us-form">
+{% csrf_token %}
+<div class="modal-header">
+    <h2 class="modal-title">Contact us</h2>
+</div>
+<div class="modal-body">
+    {% load widget_tweaks %}
     <table class="table table-hover">
-        {{ form.as_table }}
+        {% for field in form %}
+          <div class="form-group{% if field.errors %} has-error{% endif %}">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {% if form.is_bound %}
+              {% if field.errors %}
+                {% render_field field class+="form-control is-invalid" %}
+                {% for error in field.errors %}
+                  <div class="invalid-feedback">
+                    {{ error }}
+                  </div>
+                {% endfor %}
+              {% else %}
+                {% render_field field class+="form-control is-valid" %}І
+              {% endif %}
+            {% else %}
+              {% render_field field class+="form-control" %}
+            {% endif %}
+          </div>
+        {% endfor %}
     </table>
-        <input type="submit" value="Sent">
-    </form>
-
-
-{% endblock %}
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default">Close</button>
+    <input type="submit" value="Sent">
+</div>
+</form>

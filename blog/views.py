@@ -1,19 +1,19 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, Comments
 from django.contrib.auth.models import User
-from .forms import PostForm, CommentForm
+from .forms import PostForm, CommentForm, ContactUsForm
 from django.utils import timezone
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
-from .forms import ContactUsForm
-from django.core.mail import send_mail
-from .tasks import django_send_mail
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 from django.core.paginator import Paginator
 from django.contrib import messages
+from .tasks import send_mail as celery_send_mail
+from django.template.loader import render_to_string
+from django.http import JsonResponse
 
 
 @login_required
@@ -25,7 +25,11 @@ def post_new(request):
             post.user = request.user
             post.published_date = timezone.now()
             post.save()
-            send_mail('New post', 'New post was added', 'no_reply@somecompany.com', ['admin_email@somecompany.com'])
+            subject = 'New post'
+            message = 'New post was added'
+            from_email = 'no_reply@somecompany.com'
+            to_email = ['admin@somecompany.com']
+            celery_send_mail.delay(subject, message, from_email, to_email)
             return redirect('blog:posts_all')
     else:
         form = PostForm()
@@ -123,21 +127,45 @@ class CommentAddView(CreateView):
 
     def form_valid(self, form):
         form.instance.post_id = self.kwargs['pk']
-        send_mail('New comment', 'New comment was added', 'no_reply@somecompany.com', ['admin@somecompany.com'])
+        subject = 'New comment'
+        message = 'New comment was added'
+        from_email = 'no_reply@somecompany.com'
+        to_email = ['admin@somecompany.com']
+        celery_send_mail.delay(subject, message, from_email, to_email)
         return super().form_valid(form)
     success_url = reverse_lazy('blog:posts_all')
 
 
 def contact_us_view(request):
+    data = dict()
     if request.method == "POST":
         form = ContactUsForm(request.POST)
         if form.is_valid():
-            subject = form.cleaned_data['subject']
-            from_email = form.cleaned_data['from_email']
-            message = form.cleaned_data['message']
-            django_send_mail(subject, message, from_email, ['admin@somecompany.com'])
-            messages.add_message(request, messages.SUCCESS, 'Message sent')
+            form.save()
+            data['form_is_valid'] = True
+
+            data['html_contact_us'] = render_to_string('contact_us.html', {'form': form})
             return redirect('blog:posts_all')
+        else:
+            data['form_is_valid'] = False
     else:
         form = ContactUsForm()
-    return render(request, "contact_us.html", context={"form": form})
+    context = {'form': form}
+    data['html_form'] = render_to_string('contact_us.html', context, request=request)
+    return JsonResponse(data)
+
+
+# def contact_us_view(request):
+#     if request.method == "POST":
+#         form = ContactUsForm(request.POST)
+#         if form.is_valid():
+#             subject = form.cleaned_data['subject']
+#             message = form.cleaned_data['message']
+#             from_email = form.cleaned_data['from_email']
+#             to_email = ['admin@somecompany.com']
+#             celery_send_mail.delay(subject, message, from_email, to_email)
+#             messages.add_message(request, messages.SUCCESS, 'Message sent')
+#             return redirect('blog:posts_all')
+#     else:
+#         form = ContactUsForm()
+#     return render(request, "contact_us.html", context={"form": form})
