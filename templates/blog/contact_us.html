@@ -18,7 +18,7 @@
                   </div>
                 {% endfor %}
               {% else %}
-                {% render_field field class+="form-control is-valid" %}І
+                {% render_field field class+="form-control is-valid" %}
               {% endif %}
             {% else %}
               {% render_field field class+="form-control" %}
@@ -28,7 +28,7 @@
     </table>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-default">Close</button>
-    <input type="submit" value="Sent">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="submit" class="btn btn-primary">Sent</button>
 </div>
 </form>
