@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, Comments
-from django.contrib.auth.models import User
 from .forms import PostForm, CommentForm, ContactUsForm
 from django.utils import timezone
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, DetailView
@@ -30,10 +29,11 @@ def post_new(request):
             from_email = 'no_reply@somecompany.com'
             to_email = ['admin@somecompany.com']
             celery_send_mail.delay(subject, message, from_email, to_email)
+            messages.add_message(request, messages.SUCCESS, 'Post added')
             return redirect('blog:posts_all')
     else:
         form = PostForm()
-    return render(request, 'post_new.html', {'form': form})
+    return render(request, 'blog/post_new.html', {'form': form})
 
 
 def post_detail(request, pk):
@@ -42,7 +42,7 @@ def post_detail(request, pk):
     paginator = Paginator(comment_l, 2)
     page = request.GET.get('page')
     comment_p = paginator.get_page(page)
-    return render(request, 'post_detail.html', {'post': post, 'comment': comment_p})
+    return render(request, 'blog/post_detail.html', {'post': post, 'comment': comment_p})
 
 
 # class PostDetailView(DetailView):
@@ -66,13 +66,13 @@ def post_detail(request, pk):
     #     return context
 
 
-@method_decorator(cache_page(10), 'dispatch')
+# @method_decorator(cache_page(10), 'dispatch')
 class PostsListView(ListView):
     model = Post
     fields = ['title', 'text']
     queryset = Post.objects.filter(published=True)
     paginate_by = 10
-    template_name = 'posts_all.html'
+    template_name = 'blog/posts_all.html'
 
     def get_object(self, **kwargs):
         user = self.request.user
@@ -82,7 +82,7 @@ class PostsListView(ListView):
 class LoginUserPostsAllView(LoginRequiredMixin, ListView):
     model = Post
     paginate_by = 10
-    template_name = 'user_posts.html'
+    template_name = 'blog/user_posts.html'
 
     def get_queryset(self):
         return Post.objects.filter(user=self.request.user)
@@ -94,7 +94,7 @@ class LoginUserPostsAllView(LoginRequiredMixin, ListView):
 
 class UserPostDetailView(DetailView):
     model = Post
-    template_name = 'user_post_detail.html'
+    template_name = 'blog/user_post_detail.html'
 
     def get_context_data(self, **kwargs):
         context = super(UserPostDetailView, self).get_context_data(**kwargs)
@@ -106,7 +106,7 @@ class UserPostDetailView(DetailView):
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     fields = ['title', 'text', 'published']
-    template_name = 'post_update.html'
+    template_name = 'blog/post_update.html'
     success_url = reverse_lazy('blog:user_posts')
 
     def get_queryset(self):
@@ -115,15 +115,15 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
 
 class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
-    template_name = 'delete_post.html'
+    template_name = 'blog/delete_post.html'
     success_url = reverse_lazy('blog:user_posts')
-    login_url = reverse_lazy('user_management:login')
+    login_url = reverse_lazy('registration:login')
 
 
 class CommentAddView(CreateView):
     model = Comments
     form_class = CommentForm
-    template_name = 'comment_add.html'
+    template_name = 'blog/comment_add.html'
 
     def form_valid(self, form):
         form.instance.post_id = self.kwargs['pk']
@@ -132,7 +132,9 @@ class CommentAddView(CreateView):
         from_email = 'no_reply@somecompany.com'
         to_email = ['admin@somecompany.com']
         celery_send_mail.delay(subject, message, from_email, to_email)
+        messages.add_message(self.request, messages.SUCCESS, 'Comment will be added after moderation')
         return super().form_valid(form)
+
     success_url = reverse_lazy('blog:posts_all')
 
 
@@ -141,17 +143,20 @@ def contact_us_view(request):
     if request.method == "POST":
         form = ContactUsForm(request.POST)
         if form.is_valid():
-            form.save()
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+            from_email = form.cleaned_data['from_email']
+            to_email = ['admin@somecompany.com']
+            celery_send_mail.delay(subject, message, from_email, to_email)
+            # messages.add_message(request, messages.SUCCESS, 'Your message was sent successful')
             data['form_is_valid'] = True
-
-            data['html_contact_us'] = render_to_string('contact_us.html', {'form': form})
-            return redirect('blog:posts_all')
+            data['html_contact_us_success'] = render_to_string('blog/contact_us_success.html')
         else:
             data['form_is_valid'] = False
     else:
         form = ContactUsForm()
     context = {'form': form}
-    data['html_form'] = render_to_string('contact_us.html', context, request=request)
+    data['html_form'] = render_to_string('blog/contact_us.html', context, request=request)
     return JsonResponse(data)
 
 
