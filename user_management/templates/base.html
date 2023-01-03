@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% load static %}<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -14,6 +14,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"
       integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf"
       crossorigin="anonymous"></script>
+  <script> src="{% static 'js/blog.js' %}"</script>
   {% block extra_css %}
   {% endblock %}
   {% block extra_js %}
@@ -61,8 +62,18 @@
           <a class="nav-link active" aria-current="page" href="{% url 'blog:posts_all' %}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'blog:contact_us' %}">Contact us</a>
+          <button type="button" class="btn btn-secondary js-contact-us" data-url="{% url 'blog:contact_us' %}">
+            <span class="glyphicon glyphicon-plus"></span>
+            Contact us
+          </button>
         </li>
+          <div class="modal fade" id="modal-contact-us">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+              </div>
+            </div>
+          </div>
         {% if request.user.is_authenticated %}
         <div class="nav-item dropdown">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -82,6 +93,7 @@
 </nav>
 <div class="container">
 {% block content %}{% endblock %}
+
 
 
     {% block pagination %}
@@ -109,6 +121,8 @@
     </nav>
     {% endif %}
     {% endblock %}
+
+
 
 </div>
 </div>
